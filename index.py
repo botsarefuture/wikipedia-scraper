@@ -8,7 +8,7 @@ LANG = "fi"
 FROM = "A"
 TO = "Ö"
 NUM_LIMIT = 5000
-f = open("datas.txt", "r")
+f = open("datas.txt", "r", encoding="utf-8")
 data = f.read()
 f.close()
 data = data.split("\n")
@@ -45,7 +45,7 @@ while True:
                     READY.append(cat["title"])
                     NUM_ITEMS += 1
                     print(cat["title"])
-            f = open("datas.txt", "a")
+            f = open("datas.txt", "a",  encoding="utf-8")
             f.write(datas_add)
             f.close()
         else:
@@ -68,10 +68,16 @@ while True:
                     READY.append(cat["title"])
                     NUM_ITEMS += 1
                     print(cat["title"])
-            f = open("datas.txt", "a")
+            f = open("datas.txt", "a", encoding="utf-8")
             f.write(datas_add)
             f.close()
     except UnicodeDecodeError:
+        f = open("datas.txt", "a",  encoding="utf-8")
+        f.write(datas_add)
+        f.close()
         print("UNi")
     except UnicodeEncodeError:
-        print("UNi")
+        f = open("datas.txt", "a",  encoding="utf-8")
+        f.write(ascii(datas_add))
+        f.close()
+        print("")
