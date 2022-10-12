@@ -21,7 +21,6 @@ def count(lista):
     for list1 in lista:
         count1 += 1
     return count1
-times = 0
 CON_KEY = ""
 while True:
     try:
