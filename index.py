@@ -1,4 +1,3 @@
-
 import requests
 import time
 
@@ -16,25 +15,29 @@ NUM_ITEMS = 0
 for data in data:
     NUM_ITEMS += 1
     READY.append(data)
+
+
 def count(lista):
     count1 = 0
     for list1 in lista:
         count1 += 1
     return count1
+
+
 CON_KEY = ""
 while True:
     try:
         if not CON_KEY == "":
             url = f"https://{LANG}.wikipedia.org/w/api.php?action=query&list=allpages&apfrom={FROM}&apto={TO}&format=json&apcontinue={CON_KEY}&aplimit={NUM_LIMIT}"
 
-            payload={}
+            payload = {}
             headers = {
-        'Cookie': 'GeoIP=US:VA:Ashburn:39.05:-77.49:v4; WMF-Last-Access-Global=10-Oct-2022; WMF-Last-Access=10-Oct-2022'
-        }
+                "Cookie": "GeoIP=US:VA:Ashburn:39.05:-77.49:v4; WMF-Last-Access-Global=10-Oct-2022; WMF-Last-Access=10-Oct-2022"
+            }
 
             response = requests.request("GET", url, headers=headers, data=payload)
             CON_KEY = response.json()["continue"]["apcontinue"]
-            #NUM_ITEMS += int(count(response.json()["query"]["allpages"]))
+            # NUM_ITEMS += int(count(response.json()["query"]["allpages"]))
             print(f'GETTED {count(response.json()["query"]["allpages"])} ITEMS')
             print(f"TOTAL ITEMS COUNT: {NUM_ITEMS}")
             time.sleep(0.5)
@@ -45,19 +48,19 @@ while True:
                     READY.append(cat["title"])
                     NUM_ITEMS += 1
                     print(cat["title"])
-            f = open("datas.txt", "a",  encoding="utf-8")
+            f = open("datas.txt", "a", encoding="utf-8")
             f.write(datas_add)
             f.close()
         else:
             url = f"https://{LANG}.wikipedia.org/w/api.php?action=query&list=allpages&apfrom={FROM}&apto={TO}&format=json&aplimit={NUM_LIMIT}"
-            payload={}
+            payload = {}
             headers = {
-        'Cookie': 'GeoIP=US:VA:Ashburn:39.05:-77.49:v4; WMF-Last-Access-Global=10-Oct-2022; WMF-Last-Access=10-Oct-2022'
-        }
+                "Cookie": "GeoIP=US:VA:Ashburn:39.05:-77.49:v4; WMF-Last-Access-Global=10-Oct-2022; WMF-Last-Access=10-Oct-2022"
+            }
 
             response = requests.request("GET", url, headers=headers, data=payload)
             CON_KEY = response.json()["continue"]["apcontinue"]
-            #NUM_ITEMS += int(count(response.json()["query"]["allpages"]))
+            # NUM_ITEMS += int(count(response.json()["query"]["allpages"]))
             print(f'GETTED {count(response.json()["query"]["allpages"])} ITEMS')
             print(f"TOTAL ITEMS COUNT: {NUM_ITEMS}")
             time.sleep(0.5)
@@ -72,12 +75,12 @@ while True:
             f.write(datas_add)
             f.close()
     except UnicodeDecodeError:
-        f = open("datas.txt", "a",  encoding="utf-8")
+        f = open("datas.txt", "a", encoding="utf-8")
         f.write(datas_add)
         f.close()
         print("UNi")
     except UnicodeEncodeError:
-        f = open("datas.txt", "a",  encoding="utf-8")
+        f = open("datas.txt", "a", encoding="utf-8")
         f.write(ascii(datas_add))
         f.close()
         print("")
